@@ -22,6 +22,8 @@ public class GainManager : MonoBehaviour
 
     [SerializeField] private TMP_Text _gainValue;
 
+    [SerializeField] private TMP_Text _roundValue;
+
     private void Awake()
     {
         
@@ -58,6 +60,8 @@ public class GainManager : MonoBehaviour
     {
 
         _gainValue.text = GameManager.Instance.Money.ToString();
+
+        _roundValue.text = GameManager.Instance.TotalRoundNumber.ToString();
 
     }
 

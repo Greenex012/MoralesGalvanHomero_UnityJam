@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public int FailedNpcNumber;
 
+    public int TotalRoundNumber;
+
     [SerializeField] private int _maxNpcs;
     public int MaxNpcs { get => _maxNpcs; set => _maxNpcs = value; }
 
@@ -75,8 +77,26 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void AddFail()
+    {
+
+        FailedNpcNumber++;
+
+        if (FailedNpcNumber > 2)
+        {
+
+            FailedNpcNumber = 0;
+
+            LoadMainScene();
+
+        }
+
+    }
+
     public void LoadGainScene()
     {
+
+        TotalRoundNumber++;
 
         SceneManager.LoadScene(1);
 
@@ -85,7 +105,9 @@ public class GameManager : MonoBehaviour
     public void LoadMainScene()
     {
 
+        TotalRoundNumber = 0;
 
+        Debug.Log("Cagaste");
 
     }
 

@@ -108,7 +108,22 @@ public class CameraController : MonoBehaviour
     public void SellMedium()
     {
 
-        GameManager.Instance.AddMoney((int)Mathf.Floor(_player.ItemData.Value * 1.2f));
+        int _chance = Random.Range(0, 100);
+
+        if (_chance < 75)
+        {
+
+            GameManager.Instance.AddMoney((int)Mathf.Floor(_player.ItemData.Value * 1.25f));
+
+            Debug.Log("SI");
+
+        }
+        else
+        {
+
+            Debug.Log("NO");
+
+        }
 
         _currentClient.Leave();
 
@@ -121,7 +136,22 @@ public class CameraController : MonoBehaviour
     public void SellRisky()
     {
 
-        GameManager.Instance.AddMoney((int)Mathf.Floor(_player.ItemData.Value * 1.5f));
+        int _chance = Random.Range(0, 100);
+
+        if (_chance < 50)
+        {
+
+            GameManager.Instance.AddMoney((int)Mathf.Floor(_player.ItemData.Value * 1.5f));
+
+            Debug.Log("SI");
+
+        }
+        else
+        {
+
+            Debug.Log("NO");
+
+        }
 
         _currentClient.Leave();
 

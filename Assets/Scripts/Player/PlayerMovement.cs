@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _renderer;
 
+    [SerializeField] private Animator _anim;
+
     [SerializeField] private GameObject _itemRenderer;
 
     private void Awake()
@@ -134,6 +136,8 @@ public class PlayerMovement : MonoBehaviour
                 if (_input.MoveX != 0f)
                 {
 
+                    _anim.SetTrigger("Fall");
+
                     ChangeState(PlayerStateEnum.Move);
 
                 }
@@ -154,6 +158,8 @@ public class PlayerMovement : MonoBehaviour
                 if (_input.MoveX != 0f)
                 {
 
+                    _anim.SetTrigger("Fall");
+
                     ChangeState(PlayerStateEnum.Move);
 
                 }
@@ -167,6 +173,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        _anim.SetFloat("HSpeed", Mathf.Abs(_rb.linearVelocityX));
+
+        _anim.SetFloat("VSpeed", Mathf.Abs(_rb.linearVelocityY));
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _rayLenght, mask);
 
@@ -182,6 +192,8 @@ public class PlayerMovement : MonoBehaviour
             _onGround = false;
 
         }
+
+        _anim.SetBool("OnGround", _onGround);
 
         switch (_currentState)
         {
@@ -301,6 +313,8 @@ public class PlayerMovement : MonoBehaviour
 
             case PlayerStateEnum.Fall:
 
+                _anim.SetTrigger("Fall");
+
                 _rb.linearVelocityY /= 4;
 
                 break;
@@ -403,6 +417,8 @@ public class PlayerMovement : MonoBehaviour
         if (_input.GrabLader && _trigger.InLadder)
         {
 
+            _anim.SetTrigger("Climb");
+
             ChangeState(PlayerStateEnum.ClimbIdle);
 
         }
@@ -414,6 +430,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (_input.Jump)
         {
+
+            _anim.SetTrigger("Jump");
 
             ChangeState(PlayerStateEnum.Jump);
 
