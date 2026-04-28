@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   Type: 2
   sprite: {fileID: -9200530490438132880, guid: 2c2747e3a0116a645af5647b558a1380, type: 3}
-  Value: 20
+  Value: 30
+  Set: 0

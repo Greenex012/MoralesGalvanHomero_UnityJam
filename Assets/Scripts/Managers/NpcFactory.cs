@@ -32,7 +32,7 @@ public class NpcFactory : MonoBehaviour
         while (true)
         {
 
-            for (int i = _targetCuantity; i != 0; i--)
+            for (int i = _targetCuantity + (GameManager.Instance.TotalRoundNumber * 2); i != 0; i--)
             {
 
                 if (GameManager.Instance.NpcNumber < GameManager.Instance.MaxNpcs)

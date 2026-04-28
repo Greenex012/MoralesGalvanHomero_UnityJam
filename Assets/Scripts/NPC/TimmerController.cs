@@ -40,7 +40,7 @@ public class TimmerController : MonoBehaviour
 
         _renderer.enabled = false;
 
-        transform.parent.GetComponent<NpcController>().Leave();
+        transform.parent.GetComponent<NpcController>().Fail();
 
     }
 }

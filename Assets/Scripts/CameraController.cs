@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -18,10 +19,26 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private GameObject _buttons;
 
+    [SerializeField] private TMP_Text _moneyDisplayValue;
+
+    private AudioSource _audio;
+
+    [SerializeField] private AudioClip _audioSellSucces;
+
+    [SerializeField] private AudioClip _audioSellFail;
+
+    private void Awake()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _buttons.SetActive(false);
+
+        UpdateMoneyDisplay();
+
     }
 
     // Update is called once per frame
@@ -103,6 +120,10 @@ public class CameraController : MonoBehaviour
 
         _buttons.SetActive(false);
 
+        PlaySuccesSound();
+
+        UpdateMoneyDisplay();
+
     }
 
     public void SellMedium()
@@ -117,11 +138,17 @@ public class CameraController : MonoBehaviour
 
             Debug.Log("SI");
 
+            PlaySuccesSound();
+
+            UpdateMoneyDisplay();
+
         }
         else
         {
 
             Debug.Log("NO");
+
+            PlayFailSound();
 
         }
 
@@ -145,11 +172,17 @@ public class CameraController : MonoBehaviour
 
             Debug.Log("SI");
 
+            PlaySuccesSound();
+
+            UpdateMoneyDisplay();
+
         }
         else
         {
 
             Debug.Log("NO");
+
+            PlayFailSound();
 
         }
 
@@ -160,4 +193,30 @@ public class CameraController : MonoBehaviour
         _buttons.SetActive(false);
 
     }
+
+    private void PlaySuccesSound()
+    {
+
+        _audio.generator = _audioSellSucces;
+
+        _audio.Play();
+
+    }
+
+    private void PlayFailSound()
+    {
+
+        _audio.generator = _audioSellFail;
+
+        _audio.Play();
+
+    }
+
+    private void UpdateMoneyDisplay()
+    {
+
+        _moneyDisplayValue.text = GameManager.Instance.Money.ToString();
+
+    }
+
 }

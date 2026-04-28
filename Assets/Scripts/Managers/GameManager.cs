@@ -98,7 +98,9 @@ public class GameManager : MonoBehaviour
 
         TotalRoundNumber++;
 
-        SceneManager.LoadScene(1);
+        NpcNumber = 0;
+
+        SceneManager.LoadScene(2);
 
     }
 
@@ -107,7 +109,9 @@ public class GameManager : MonoBehaviour
 
         TotalRoundNumber = 0;
 
-        Debug.Log("Cagaste");
+        NpcNumber = 0;
+
+        SceneManager.LoadScene(0);
 
     }
 

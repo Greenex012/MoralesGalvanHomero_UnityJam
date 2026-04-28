@@ -1,6 +1,8 @@
 using DG.Tweening;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class NpcController : MonoBehaviour
 {
@@ -14,6 +16,12 @@ public class NpcController : MonoBehaviour
     [SerializeField] private Vector3 _attendPos;
 
     private Rigidbody2D _rb;
+
+    [SerializeField] private GameObject _sprite;
+
+    private SpriteRenderer _renderer;
+
+    private Animator _anim;
 
     [SerializeField] private ItemType _wanted;
 
@@ -37,12 +45,20 @@ public class NpcController : MonoBehaviour
 
     public bool Last { get => _last; set => _last = value; }
 
+    private AudioSource _audio;
 
+    [SerializeField] private AudioClip _audioBadLeave;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
 
         mask = ~LayerMask.GetMask("Npc");
+
+        _renderer = _sprite.GetComponent<SpriteRenderer>();
+
+        _anim = _sprite.GetComponent<Animator>();
+
+        _audio = GetComponent<AudioSource>();
 
         int i = Random.Range(1, 4);
 
@@ -99,17 +115,31 @@ public class NpcController : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 1f, mask);
 
-
         if (!hit)
         {
 
             Move();
+
+            _anim.SetFloat("Speed", 1);
 
         }
         else
         { 
 
             _rb.linearVelocity = Vector2.zero;
+
+            if (_leaving)
+            {
+
+                _anim.SetFloat("Speed", 1);
+
+            }
+            else
+            {
+
+                _anim.SetFloat("Speed", 0);
+
+            }
 
         }
 
@@ -131,6 +161,8 @@ public class NpcController : MonoBehaviour
 
         _though.SetActive(false);
 
+        _renderer.flipX = false;
+
         GetComponent<BoxCollider2D>().enabled = false;
 
         transform.DOMove(_leavePos, _speed).SetEase(Ease.Linear).OnComplete(Leaved);
@@ -139,6 +171,13 @@ public class NpcController : MonoBehaviour
 
     public void Fail()
     {
+
+        _audio.generator = _audioBadLeave;
+
+        _audio.pitch = Random.Range(0.5f, 1.5f);
+
+        _audio.Play();
+
         Leave();
     }
 

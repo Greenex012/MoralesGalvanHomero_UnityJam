@@ -1,9 +1,7 @@
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.UIElements.ToolbarMenu;
 
 public class GainManager : MonoBehaviour
 {
@@ -70,7 +68,11 @@ public class GainManager : MonoBehaviour
 
         GameManager.Instance.ItemSet1 = true;
 
+        GameManager.Instance.RemoveMoney(_tier1Price);
+
         _tier1HUD.SetActive(false);
+
+        _gainValue.text = GameManager.Instance.Money.ToString();
 
     }
 
@@ -79,14 +81,18 @@ public class GainManager : MonoBehaviour
 
         GameManager.Instance.ItemSet2 = true;
 
+        GameManager.Instance.RemoveMoney(_tier2Price);
+
         _tier2HUD.SetActive(false);
+
+        _gainValue.text = GameManager.Instance.Money.ToString();
 
     }
 
     public void Continue()
     {
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
 
     }
 

@@ -29,6 +29,12 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private GameObject _itemRenderer;
 
+    private AudioSource _audio;
+
+    [SerializeField] private AudioClip _audioJump;
+
+    [SerializeField] private AudioClip _audioPickUp;
+
     private void Awake()
     {
         mask = LayerMask.GetMask("Ground");
@@ -38,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         _input = GetComponent<GatherInput>();
 
         _trigger = GetComponentInChildren<PlayerTrigger>();
+
+        _audio = GetComponent<AudioSource>();
 
     }
 
@@ -309,6 +317,12 @@ public class PlayerMovement : MonoBehaviour
 
                 _rb.linearVelocityY += _jumpForce;
 
+                _audio.generator = _audioJump;
+
+                _audio.pitch = Random.Range(0.5f, 1.5f);
+
+                _audio.Play();
+
                 break;
 
             case PlayerStateEnum.Fall:
@@ -391,6 +405,10 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 _itemRenderer.GetComponent<SpriteRenderer>().sprite = ItemData.sprite;
+
+                _audio.generator = _audioPickUp;
+
+                _audio.Play();
 
             }
 
